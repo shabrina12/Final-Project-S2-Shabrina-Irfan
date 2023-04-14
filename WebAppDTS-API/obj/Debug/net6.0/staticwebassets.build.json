@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "jYfdQGZtuzyDKL3ek/jX7nT9VVJYCTeHZZg2umtz3mw=",
+  "Source": "WebAppDTS-API",
+  "BasePath": "_content/WebAppDTS-API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
