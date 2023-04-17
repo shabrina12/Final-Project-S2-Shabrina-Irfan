@@ -13,7 +13,7 @@ public partial class Employee
 
     public DateTime BirthDate { get; set; }
 
-    public int Gender { get; set; }
+    public GenderEnum Gender { get; set; }
 
     public DateTime HiringDate { get; set; }
 
@@ -24,4 +24,8 @@ public partial class Employee
     public virtual Account? Account { get; set; }
 
     public virtual Profiling? Profiling { get; set; }
+}
+public enum GenderEnum
+{
+    Female, Male
 }

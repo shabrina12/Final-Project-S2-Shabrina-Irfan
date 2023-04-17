@@ -4,8 +4,9 @@
     {
         Task <IEnumerable<TEntity>> GetAll();
         Task <TEntity?> GetById(TKey key);
-        Task<int> Insert(TEntity entity);
-        Task<int> Update(TEntity entity);
-        Task<int> Delete(TKey key);
+        Task Insert(TEntity entity);
+        Task Update(TEntity entity);
+        Task Delete(TKey key);
+        Task<bool> IsExist(TKey key);
     }
 }
