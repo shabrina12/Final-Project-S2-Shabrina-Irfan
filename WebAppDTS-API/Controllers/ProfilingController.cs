@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using WebAppDTS_API.Repository;
 using WebAppDTS_API.Repository.Contracts;
@@ -8,19 +7,19 @@ namespace WebAppDTS_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountController : Controller
+    public class ProfilingController : Controller
     {
-        private readonly IAccountRepository _accountRepository;
-        public AccountController(IAccountRepository accountRepository)
+        private readonly IProfilingRepository _profilingRepository;
+
+        public ProfilingController(IProfilingRepository profilingRepository)
         {
-            _accountRepository = accountRepository;
+            _profilingRepository = profilingRepository;
         }
 
-        // GET: AccountController
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var results = await _accountRepository.GetAllAsync();
+            var results = await _profilingRepository.GetAllAsync();
             if (results == null)
             {
                 return NotFound(new

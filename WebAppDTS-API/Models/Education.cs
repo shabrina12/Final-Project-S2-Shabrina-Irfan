@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace WebAppDTS_API.Models;
 
@@ -14,8 +15,8 @@ public partial class Education
     public decimal Gpa { get; set; }
 
     public int UniversityId { get; set; }
-
+    [JsonIgnore]
     public virtual Profiling? Profiling { get; set; }
-
-    public virtual University University { get; set; } = null!;
+    [JsonIgnore]
+    public virtual University? University { get; set; } = null!;
 }

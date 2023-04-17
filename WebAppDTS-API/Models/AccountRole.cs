@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace WebAppDTS_API.Models;
 
@@ -10,8 +11,8 @@ public partial class AccountRole
     public string AccountNik { get; set; } = null!;
 
     public int RoleId { get; set; }
-
-    public virtual Account AccountNikNavigation { get; set; } = null!;
-
-    public virtual Role Role { get; set; } = null!;
+    [JsonIgnore]
+    public virtual Account? AccountNikNavigation { get; set; } = null!;
+    [JsonIgnore]
+    public virtual Role? Role { get; set; } = null!;
 }

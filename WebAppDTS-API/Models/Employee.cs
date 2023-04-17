@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace WebAppDTS_API.Models;
 
@@ -20,9 +21,9 @@ public partial class Employee
     public string Email { get; set; } = null!;
 
     public string PhoneNumber { get; set; } = null!;
-
+    [JsonIgnore]
     public virtual Account? Account { get; set; }
-
+    [JsonIgnore]
     public virtual Profiling? Profiling { get; set; }
 }
 public enum GenderEnum

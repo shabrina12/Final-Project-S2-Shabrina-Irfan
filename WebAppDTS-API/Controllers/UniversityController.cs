@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using WebAppDTS_API.Models;
 using WebAppDTS_API.Repository.Contracts;
 
 namespace WebAppDTS_API.Controllers
@@ -37,11 +38,37 @@ namespace WebAppDTS_API.Controllers
                 code = StatusCodes.Status200OK,
                 status = HttpStatusCode.OK.ToString(),
                 data = results
-                //data = new
-                //{
-                //    message = "Retrieve data success"
-                //}
             });
         }
+
+        //[HttpGet]
+        //public async Task<IActionResult> GetById(int id)
+        //{
+        //    var results = await _universityRepository.GetByIdAsync(id);
+        //    if (results == null)
+        //    {
+        //        return NotFound(new
+        //        {
+        //            code = StatusCodes.Status404NotFound,
+        //            status = HttpStatusCode.NotFound.ToString(),
+        //            data = new
+        //            {
+        //                message = "Data tidak ditemukan!"
+        //            }
+        //        });
+        //    }
+
+        //    return Ok(new
+        //    {
+        //        code = StatusCodes.Status200OK,
+        //        status = HttpStatusCode.OK.ToString(),
+        //        data = results
+        //    });
+        //}
+
+        //public async Task<IActionResult> InsertAsync(University university)
+        //{
+
+        //}
     }
 }

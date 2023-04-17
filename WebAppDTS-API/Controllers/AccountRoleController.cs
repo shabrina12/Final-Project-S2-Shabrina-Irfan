@@ -1,26 +1,24 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using WebAppDTS_API.Repository;
 using WebAppDTS_API.Repository.Contracts;
 
 namespace WebAppDTS_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountController : Controller
+    public class AccountRoleController : Controller
     {
-        private readonly IAccountRepository _accountRepository;
-        public AccountController(IAccountRepository accountRepository)
+        private readonly IAccountRoleRepository _accountRoleRepository;
+
+        public AccountRoleController(IAccountRoleRepository accountRoleRepository)
         {
-            _accountRepository = accountRepository;
+            _accountRoleRepository = accountRoleRepository;
         }
 
-        // GET: AccountController
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var results = await _accountRepository.GetAllAsync();
+            var results = await _accountRoleRepository.GetAllAsync();
             if (results == null)
             {
                 return NotFound(new
