@@ -36,21 +36,21 @@ namespace WebAppDTS_API.Repository
         }
 
         // UPDATE
-        public async Task UpdateAsync(TEntity entity)
+        public async Task<int> UpdateAsync(TEntity entity)
         {
 
             _context.Set<TEntity>().Update(entity);
-            await _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync();            
             //_context.Entry(entity).State = EntityState.Modified;
             //await _context.SaveChangesAsync();
         }
 
         // DELETE
-        public async Task DeleteAsync(TKey key)
+        public async Task<int> DeleteAsync(TKey key)
         {
             var entity = await GetByIdAsync(key);
             _context.Set<TEntity>().Remove(entity!);
-            await _context.SaveChangesAsync();           
+            return await _context.SaveChangesAsync();           
         }
         public virtual async Task<bool> IsExist(TKey key)
         {
