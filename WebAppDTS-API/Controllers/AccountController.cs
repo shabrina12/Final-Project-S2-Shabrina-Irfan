@@ -17,7 +17,7 @@ namespace WebAppDTS_API.Controllers
         [Route("api/account")]
         public async Task<IActionResult> Index()
         {
-            var entities = await _accountRepository.GetAll();
+            var entities = await _accountRepository.GetAllAsync();
             return View(entities);
         }
     }

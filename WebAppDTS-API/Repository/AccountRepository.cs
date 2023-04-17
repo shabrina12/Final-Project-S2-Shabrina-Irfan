@@ -42,27 +42,26 @@ namespace WebAppDTS_API.Repository
                 {
                     Name = registerVM.UniversityName
                 };
-                if (await _universityRepository.IsNameExist(registerVM.UniversityName))
+                if (await _universityRepository.IsNameExistAsync(registerVM.UniversityName))
                 {
 
                 }
                 else
                 {
-                    await _universityRepository.Insert(university);
+                    await _universityRepository.InsertAsync(university);
                 }
 
                 // EDUCATION
-                var education = new Education
+                var education = await _educationRepository.InsertAsync(new Education
                 {
                     Major = registerVM.Major,
                     Degree = registerVM.Degree,
                     Gpa = registerVM.GPA,
                     UniversityId = university.Id,
-                };
-                await _educationRepository.Insert(education);
+                });
 
                 // EMPLOYEE
-                var employee = new Employee
+                var employee = await _employeeRepository.InsertAsync(new Employee
                 {
                     Nik = registerVM.NIK,
                     FirstName = registerVM.FirstName,
@@ -72,34 +71,28 @@ namespace WebAppDTS_API.Repository
                     PhoneNumber = registerVM.PhoneNumber,
                     Email = registerVM.Email,
                     HiringDate = DateTime.Now
-                };
-                await _employeeRepository.Insert(employee);
+                });
 
                 // ACCOUNT
-                var account = new Account
+                await InsertAsync(new Account
                 {
-                    EmployeeNik = registerVM.NIK,
-                    Password = Hashing.HashPassword(registerVM.Password),
-                };
-                await Insert(account);
-
-                // AccountRole
-                //var userRole = _context.Roles.FirstOrDefault(r => r.Name.Equals("User"));
-
-                //var accountRole = new AccountRole
-                //{
-                //    AccountNik = account.EmployeeNik,
-                //    RoleId = userRole.Id
-                //};
-                //await _accountRoleRepository.Insert(accountRole);
+                    EmployeeNik = employee!.Nik,
+                    Password = Hashing.HashPassword(registerVM.Password)
+                });
 
                 // PROFILING
-                var profiling = new Profiling
+                await _profilingRepository.InsertAsync(new Profiling
                 {
-                    EmployeeNik = registerVM.NIK,
-                    EducationId = education.Id,
-                };
-                await _profilingRepository.Insert(profiling);
+                    EmployeeNik = employee.Nik,
+                    EducationId = education!.Id
+                });
+
+                // ACCOUNT ROLE
+                await _accountRoleRepository.InsertAsync(new AccountRole
+                {
+                    AccountNik = registerVM.NIK,
+                    RoleId = 1
+                });
 
                 await transaction.CommitAsync();
             }
@@ -111,8 +104,8 @@ namespace WebAppDTS_API.Repository
 
         public async Task<bool> LoginAsync(LoginVM loginVM)
         {
-            var getEmployees = await _employeeRepository.GetAll();
-            var getAccounts = await GetAll();
+            var getEmployees = await _employeeRepository.GetAllAsync();
+            var getAccounts = await GetAllAsync();
 
             var getUserData = getEmployees.Join(getAccounts,
                                                 e => e.Nik,
@@ -129,9 +122,9 @@ namespace WebAppDTS_API.Repository
 
         public async Task<string> GetRoleName(string email)
         {
-            var getEmployees = await _employeeRepository.GetAll();
-            var getRoleName = await _roleRepository.GetAll();
-            var getAccountRoles = await _accountRoleRepository.GetAll();
+            var getEmployees = await _employeeRepository.GetAllAsync();
+            var getRoleName = await _roleRepository.GetAllAsync();
+            var getAccountRoles = await _accountRoleRepository.GetAllAsync();
 
             var getUserRole = getEmployees
                                 .Join(getAccountRoles, e => e.Nik, ar => ar.AccountNik, (e, ar) => new { e.Email, ar.RoleId })
