@@ -40,5 +40,31 @@ namespace WebAppDTS_API.Controllers
                 data = results
             });
         }
+
+        // GET ROLE BY ID
+        [HttpGet("{id}", Name = "GetRoleById")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var result = await _roleRepository.GetByIdAsync(id);
+            if (result == null)
+            {
+                return NotFound(new
+                {
+                    code = StatusCodes.Status404NotFound,
+                    status = HttpStatusCode.NotFound.ToString(),
+                    data = new
+                    {
+                        message = "Data tidak ditemukan!"
+                    }
+                });
+            }
+
+            return Ok(new
+            {
+                code = StatusCodes.Status200OK,
+                status = HttpStatusCode.OK.ToString(),
+                data = result
+            });
+        }
     }
 }

@@ -40,5 +40,31 @@ namespace WebAppDTS_API.Controllers
                 data = results
             });
         }
+
+        // GET PROFILING BY NIK
+        [HttpGet("{nik}", Name = "GetProfilingByNik")]
+        public async Task<IActionResult> GetById(string nik)
+        {
+            var result = await _profilingRepository.GetByIdAsync(nik);
+            if (result == null)
+            {
+                return NotFound(new
+                {
+                    code = StatusCodes.Status404NotFound,
+                    status = HttpStatusCode.NotFound.ToString(),
+                    data = new
+                    {
+                        message = "Data tidak ditemukan!"
+                    }
+                });
+            }
+
+            return Ok(new
+            {
+                code = StatusCodes.Status200OK,
+                status = HttpStatusCode.OK.ToString(),
+                data = result
+            });
+        }
     }
 }

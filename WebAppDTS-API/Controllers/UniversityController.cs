@@ -41,30 +41,31 @@ namespace WebAppDTS_API.Controllers
             });
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> GetById(int id)
-        //{
-        //    var results = await _universityRepository.GetByIdAsync(id);
-        //    if (results == null)
-        //    {
-        //        return NotFound(new
-        //        {
-        //            code = StatusCodes.Status404NotFound,
-        //            status = HttpStatusCode.NotFound.ToString(),
-        //            data = new
-        //            {
-        //                message = "Data tidak ditemukan!"
-        //            }
-        //        });
-        //    }
+        // GET UNIVERSITY BY ID
+        [HttpGet("{id}", Name = "GetUniversityById")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var result = await _universityRepository.GetByIdAsync(id);
+            if (result == null)
+            {
+                return NotFound(new
+                {
+                    code = StatusCodes.Status404NotFound,
+                    status = HttpStatusCode.NotFound.ToString(),
+                    data = new
+                    {
+                        message = "Data tidak ditemukan!"
+                    }
+                });
+            }
 
-        //    return Ok(new
-        //    {
-        //        code = StatusCodes.Status200OK,
-        //        status = HttpStatusCode.OK.ToString(),
-        //        data = results
-        //    });
-        //}
+            return Ok(new
+            {
+                code = StatusCodes.Status200OK,
+                status = HttpStatusCode.OK.ToString(),
+                data = result
+            });
+        }
 
         //public async Task<IActionResult> InsertAsync(University university)
         //{

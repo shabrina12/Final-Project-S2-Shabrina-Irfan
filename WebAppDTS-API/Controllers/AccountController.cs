@@ -41,5 +41,31 @@ namespace WebAppDTS_API.Controllers
                 data = results
             });
         }
+
+        // GET ACCOUNT BY ID
+        [HttpGet("{nik}", Name = "GetAccountByNik")]
+        public async Task<IActionResult> GetById(string nik)
+        {
+            var result = await _accountRepository.GetByIdAsync(nik);
+            if (result == null)
+            {
+                return NotFound(new
+                {
+                    code = StatusCodes.Status404NotFound,
+                    status = HttpStatusCode.NotFound.ToString(),
+                    data = new
+                    {
+                        message = "Data tidak ditemukan!"
+                    }
+                });
+            }
+
+            return Ok(new
+            {
+                code = StatusCodes.Status200OK,
+                status = HttpStatusCode.OK.ToString(),
+                data = result
+            });
+        }
     }
 }
