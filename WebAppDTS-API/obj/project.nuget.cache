@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "ab+Sv75S8cBxxFvuQiwxP9FTY/m2me2Ri5qZbMrbGWBjNGM7QrETpxuDrtMhVd0oXGR0SPyKvD4x+kJCMLcNHQ==",
+  "dgSpecHash": "a0chGu2fZNhvKsl8Bq4g+qC7BQtI/xT5kXgTJ0AFKOwTbWUlazEleiTc89eIHNaBikdPPWSxOGDCy1gZSgp30A==",
   "success": true,
   "projectFilePath": "C:\\Users\\shabb\\source\\repos\\WebAppDTS-API\\WebAppDTS-API\\WebAppDTS-API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\shabb\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\shabb\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
+    "C:\\Users\\shabb\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\shabb\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\shabb\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\shabb\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",

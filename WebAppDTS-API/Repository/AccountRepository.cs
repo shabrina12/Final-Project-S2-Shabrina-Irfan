@@ -2,6 +2,7 @@
 using WebAppDTS_API.Models;
 using WebAppDTS_API.Repository.Contracts;
 using WebAppDTS_API.ViewModels;
+using WebAppDTS_API.Handlers;
 
 namespace WebAppDTS_API.Repository
 {
@@ -75,7 +76,7 @@ namespace WebAppDTS_API.Repository
                 var account = new Account
                 {
                     EmployeeNik = registerVM.NIK,
-                    //Password = Hashing.HashPassword(registerVM.Password),
+                    Password = Hashing.HashPassword(registerVM.Password),
                 };
                 await Insert(account);
 
@@ -120,7 +121,7 @@ namespace WebAppDTS_API.Repository
                                                 })
                                           .FirstOrDefault(ud => ud.Email == loginVM.Email);
 
-            return getUserData is not null && loginVM.Password == getUserData.Password;
+            return getUserData is not null && Hashing.ValidatePassword(loginVM.Password, getUserData.Password);
         }
     }
 }

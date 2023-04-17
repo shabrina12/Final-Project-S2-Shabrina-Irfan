@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using WebAppDTS_API.Models;
 using System.Reflection;
 
 namespace WebAppDTS_API.ViewModels
