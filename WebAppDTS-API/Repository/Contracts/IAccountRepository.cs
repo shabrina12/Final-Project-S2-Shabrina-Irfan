@@ -7,5 +7,6 @@ namespace WebAppDTS_API.Repository.Contracts
     {
         Task RegisterAsync(RegisterVM registerVM);
         Task<bool> LoginAsync(LoginVM loginVM);
+        Task<string> GetRoleName(string email);
     }
 }

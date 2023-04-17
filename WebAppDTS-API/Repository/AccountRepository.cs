@@ -13,13 +13,15 @@ namespace WebAppDTS_API.Repository
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IAccountRoleRepository _accountRoleRepository;
         private readonly IProfilingRepository _profilingRepository;
+        private readonly IRoleRepository _roleRepository;
         public AccountRepository(
             MyContext context,
             IUniversityRepository universityRepository,
             IEducationRepository educationRepository,
             IEmployeeRepository employeeRepository,
             IAccountRoleRepository accountRoleRepository,
-            IProfilingRepository profilingRepository
+            IProfilingRepository profilingRepository,
+            IRoleRepository roleRepository
             ) : base(context)
         {
             _universityRepository = universityRepository;
@@ -27,6 +29,7 @@ namespace WebAppDTS_API.Repository
             _employeeRepository = employeeRepository;
             _accountRoleRepository = accountRoleRepository;
             _profilingRepository = profilingRepository;
+            _roleRepository = roleRepository;
         }
 
         public async Task RegisterAsync(RegisterVM registerVM)
@@ -34,7 +37,7 @@ namespace WebAppDTS_API.Repository
             using var transaction = _context.Database.BeginTransaction();
             try
             {
-
+                // UNIVERSITY
                 var university = new University
                 {
                     Name = registerVM.UniversityName
@@ -48,7 +51,7 @@ namespace WebAppDTS_API.Repository
                     await _universityRepository.Insert(university);
                 }
 
-                // Education
+                // EDUCATION
                 var education = new Education
                 {
                     Major = registerVM.Major,
@@ -58,7 +61,7 @@ namespace WebAppDTS_API.Repository
                 };
                 await _educationRepository.Insert(education);
 
-                // Employee
+                // EMPLOYEE
                 var employee = new Employee
                 {
                     Nik = registerVM.NIK,
@@ -72,7 +75,7 @@ namespace WebAppDTS_API.Repository
                 };
                 await _employeeRepository.Insert(employee);
 
-                // Account
+                // ACCOUNT
                 var account = new Account
                 {
                     EmployeeNik = registerVM.NIK,
@@ -81,16 +84,16 @@ namespace WebAppDTS_API.Repository
                 await Insert(account);
 
                 // AccountRole
-                var userRole = _context.Roles.FirstOrDefault(r => r.Name.Equals("User"));
-          
-                var accountRole = new AccountRole
-                {
-                    AccountNik = account.EmployeeNik,
-                    RoleId = userRole.Id
-                };
+                //var userRole = _context.Roles.FirstOrDefault(r => r.Name.Equals("User"));
 
-                await _accountRoleRepository.Insert(accountRole);
-                // Profiling
+                //var accountRole = new AccountRole
+                //{
+                //    AccountNik = account.EmployeeNik,
+                //    RoleId = userRole.Id
+                //};
+                //await _accountRoleRepository.Insert(accountRole);
+
+                // PROFILING
                 var profiling = new Profiling
                 {
                     EmployeeNik = registerVM.NIK,
@@ -122,6 +125,20 @@ namespace WebAppDTS_API.Repository
                                           .FirstOrDefault(ud => ud.Email == loginVM.Email);
 
             return getUserData is not null && Hashing.ValidatePassword(loginVM.Password, getUserData.Password);
+        }
+
+        public async Task<string> GetRoleName(string email)
+        {
+            var getEmployees = await _employeeRepository.GetAll();
+            var getRoleName = await _roleRepository.GetAll();
+            var getAccountRoles = await _accountRoleRepository.GetAll();
+
+            var getUserRole = getEmployees
+                                .Join(getAccountRoles, e => e.Nik, ar => ar.AccountNik, (e, ar) => new { e.Email, ar.RoleId })
+                                .Join(getRoleName, ea => ea.RoleId, r => r.Id, (ea, r) => new { ea.Email, r.Name })
+                                .FirstOrDefault(e => e.Email == email)!.Name;
+
+            return getUserRole;
         }
     }
 }
