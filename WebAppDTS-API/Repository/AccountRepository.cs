@@ -31,7 +31,7 @@ namespace WebAppDTS_API.Repository
             _profilingRepository = profilingRepository;
             _roleRepository = roleRepository;
         }
-
+        
         public async Task<int> RegisterAsync(RegisterVM registerVM)
         {
             using var transaction = _context.Database.BeginTransaction();
@@ -44,7 +44,7 @@ namespace WebAppDTS_API.Repository
                 };
                 if (await _universityRepository.IsNameExistAsync(registerVM.UniversityName))
                 {
-
+                    university.Id = _universityRepository.GetByNameAsync(registerVM.UniversityName).Id;
                 }
                 else
                 {
@@ -97,7 +97,7 @@ namespace WebAppDTS_API.Repository
                 await transaction.CommitAsync();
                 return 1;
             }
-            catch
+            catch(Exception)
             {
                 await transaction.RollbackAsync();
                 return 0;
