@@ -2,8 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\WebAppDTS-API",
+    "\\WebAppDTS-API\\Base",
+    "\\WebAppDTS-API\\Controllers",
+    "\\WebAppDTS-API\\Models",
     "\\WebAppDTS-API\\Repository"
   ],
-  "SelectedNode": "\\WebAppDTS-API.sln",
+  "SelectedNode": "\\WebAppDTS-API\\Base\\BaseController.cs",
   "PreviewInSolutionExplorer": false
 }

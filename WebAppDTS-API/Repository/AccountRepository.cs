@@ -32,7 +32,7 @@ namespace WebAppDTS_API.Repository
             _roleRepository = roleRepository;
         }
 
-        public async Task RegisterAsync(RegisterVM registerVM)
+        public async Task<int> RegisterAsync(RegisterVM registerVM)
         {
             using var transaction = _context.Database.BeginTransaction();
             try
@@ -95,10 +95,12 @@ namespace WebAppDTS_API.Repository
                 });
 
                 await transaction.CommitAsync();
+                return 1;
             }
             catch
             {
                 await transaction.RollbackAsync();
+                return 0;
             }
         }
 

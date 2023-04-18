@@ -5,7 +5,7 @@ namespace WebAppDTS_API.Repository.Contracts
 {
     public interface IAccountRepository : IGeneralRepository<Account, string>
     {
-        Task RegisterAsync(RegisterVM registerVM);
+        Task<int> RegisterAsync(RegisterVM registerVM);
         Task<bool> LoginAsync(LoginVM loginVM);
         Task<string> GetRoleName(string email);
     }

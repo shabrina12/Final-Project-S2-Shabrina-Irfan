@@ -12,17 +12,17 @@ namespace WebAppDTS_API.Base
         where Entity : class
         where IRepository : IGeneralRepository<Entity, Key>
     {
-        private readonly IRepository repository;
+        private readonly IRepository _repository;
         public BaseController(IRepository repository)
         {
-            this.repository = repository;
+            _repository = repository;
         }
 
         // GET ALL 
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {
-            var results = await repository.GetAllAsync();
+            var results = await _repository.GetAllAsync();
             if (results == null)
             {
                 return NotFound(new
@@ -47,7 +47,7 @@ namespace WebAppDTS_API.Base
         [HttpGet("{key}")]
         public async Task<IActionResult> GetByIdAsync(Key key)
         {
-            var result = await repository.GetByIdAsync(key);
+            var result = await _repository.GetByIdAsync(key);
             if (result == null)
             {
                 return NotFound(new
@@ -72,7 +72,7 @@ namespace WebAppDTS_API.Base
         [HttpPost]
         public async Task<IActionResult> InsertAsync(Entity entity)
         {
-            var result = await repository.InsertAsync(entity);
+            var result = await _repository.InsertAsync(entity);
             if (result == null)
             {
                 return Conflict(new
@@ -100,7 +100,7 @@ namespace WebAppDTS_API.Base
         [HttpPut("{key}")]
         public async Task<IActionResult> UpdateAsync(Entity entity, Key key)
         {
-            var result = await repository.IsExist(key);
+            var result = await _repository.IsExist(key);
             if (!result)
             {
                 return NotFound(new
@@ -113,7 +113,8 @@ namespace WebAppDTS_API.Base
                     }
                 });
             }
-            var update = await repository.UpdateAsync(entity);
+
+            var update = await _repository.UpdateAsync(entity);
             if (update == 0)
             {
                 return Conflict(new
@@ -142,7 +143,7 @@ namespace WebAppDTS_API.Base
         [HttpDelete("{key}")]
         public async Task<IActionResult> Delete(Key key)
         {
-            var result = await repository.DeleteAsync(key);
+            var result = await _repository.DeleteAsync(key);
             if (result == 0)
             {
                 return Conflict(new
