@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using WebAppDTS_API.Repository;
@@ -22,25 +23,12 @@ namespace WebAppDTS_API.Base
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {
-            var results = await _repository.GetAllAsync();
-            if (results == null)
+            var result = await _repository.GetAllAsync();
+            if (result == null)
             {
-                return NotFound(new
-                {
-                    code = StatusCodes.Status404NotFound,
-                    status = HttpStatusCode.NotFound.ToString(),
-                    data = new
-                    {
-                        message = "Data Not Found!"
-                    }
-                });
+                return NotFound();
             }
-            return Ok(new
-            {
-                code = StatusCodes.Status200OK,
-                status = HttpStatusCode.OK.ToString(),
-                data = results
-            });
+            return Ok(result);
         }
 
         // GET BY ID
@@ -50,91 +38,42 @@ namespace WebAppDTS_API.Base
             var result = await _repository.GetByIdAsync(key);
             if (result == null)
             {
-                return NotFound(new
-                {
-                    code = StatusCodes.Status404NotFound,
-                    status = HttpStatusCode.NotFound.ToString(),
-                    data = new
-                    {
-                        message = "Data Not Found!"
-                    }
-                });
+                return NotFound();
             }
-            return Ok(new
-            {
-                code = StatusCodes.Status200OK,
-                status = HttpStatusCode.OK.ToString(),
-                data = result
-            });
+            return Ok(result);
         }
 
         // INSERT
+        //[Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<IActionResult> InsertAsync(Entity entity)
         {
             var result = await _repository.InsertAsync(entity);
-            if (result == null)
-            {
-                return Conflict(new
-                {
-                    code = StatusCodes.Status409Conflict,
-                    status = HttpStatusCode.NotFound.ToString(),
-                    data = new
-                    {
-                        message = "Data tidak berhasil disimpan!"
-                    }
-                });
-            }
-            return Ok(new
-            {
-                code = StatusCodes.Status200OK,
-                status = HttpStatusCode.OK.ToString(),
-                data = new
-                {
-                    message = "Data berhasil disimpan!"
-                }
-            });
+            return Ok(result);
         }
 
         // UPDATE
         [HttpPut("{key}")]
         public async Task<IActionResult> UpdateAsync(Entity entity, Key key)
         {
-            var result = await _repository.IsExist(key);
-            if (!result)
+            if (key.Equals(entity.GetType().GetProperty("Id")) || key.Equals(entity.GetType().GetProperty("Nik")))
             {
-                return NotFound(new
-                {
-                    code = StatusCodes.Status404NotFound,
-                    status = HttpStatusCode.NotFound.ToString(),
-                    data = new
-                    {
-                        message = "Data Not Found!"
-                    }
-                });
+                return BadRequest();
             }
 
-            var update = await _repository.UpdateAsync(entity);
-            if (update == 0)
+            if (!await _repository.IsExist(key))
             {
-                return Conflict(new
-                {
-                    code = StatusCodes.Status409Conflict,
-                    status = HttpStatusCode.NotFound.ToString(),
-                    data = new
-                    {
-                        message = "Data tidak berhasil diupdate!"
-                    }
-                });
+                return NotFound();
             }
 
+            await _repository.UpdateAsync(entity);
             return Ok(new
             {
                 code = StatusCodes.Status200OK,
                 status = HttpStatusCode.OK.ToString(),
                 data = new
                 {
-                    message = "Data berhasil terupdate!"
+                    message = "Data berhasil diupdate!"
                 }
             });
         }
@@ -146,24 +85,15 @@ namespace WebAppDTS_API.Base
             var result = await _repository.DeleteAsync(key);
             if (result == 0)
             {
-                return Conflict(new
-                {
-                    code = StatusCodes.Status409Conflict,
-                    status = HttpStatusCode.NotFound.ToString(),
-                    data = new
-                    {
-                        message = "Data tidak berhasil dihapus!"
-                    }
-                });
+                return NotFound();
             }
-
             return Ok(new
             {
                 code = StatusCodes.Status200OK,
                 status = HttpStatusCode.OK.ToString(),
                 data = new
                 {
-                    message = "Data berhasil terhapus!"
+                    message = "Data berhasil dihapus!"
                 }
             });
         }

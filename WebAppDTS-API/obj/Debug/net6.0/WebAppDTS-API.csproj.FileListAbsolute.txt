@@ -86,3 +86,4 @@ C:\Users\shabb\source\repos\WebAppDTS-API\WebAppDTS-API\obj\Debug\net6.0\WebAppD
 C:\Users\shabb\source\repos\WebAppDTS-API\WebAppDTS-API\obj\Debug\net6.0\WebAppDTS-API.genruntimeconfig.cache
 C:\Users\shabb\source\repos\WebAppDTS-API\WebAppDTS-API\obj\Debug\net6.0\ref\WebAppDTS-API.dll
 C:\Users\shabb\source\repos\WebAppDTS-API\WebAppDTS-API\bin\Debug\net6.0\BCrypt.Net-Next.dll
+C:\Users\shabb\source\repos\WebAppDTS-API\WebAppDTS-API\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

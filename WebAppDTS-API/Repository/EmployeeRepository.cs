@@ -2,6 +2,7 @@
 using WebAppDTS_API.Contexts;
 using WebAppDTS_API.Models;
 using WebAppDTS_API.Repository.Contracts;
+using WebAppDTS_API.ViewModels;
 
 namespace WebAppDTS_API.Repository
 {
@@ -14,19 +15,15 @@ namespace WebAppDTS_API.Repository
             return employee is null ? string.Empty : string.Concat(employee.FirstName, " ", employee.LastName);
         }
 
-        //public async Task<string> GetFullName(string email)
-        //{
-        //    using var transaction = _context.Database.BeginTransaction();
-        //    var employee = _context.Employees.First(e => e.Email == email);
-        //    //return employee.FirstName + " " + employee.LastName;
-        //    if (employee == null)
-        //    {
-        //        return String.Empty;
-        //    }
-        //    else
-        //    {
-        //        return employee.FirstName + " " + employee.LastName;
-        //    }
-        //}
+        public async Task<UserVM> GetUserDataByEmailAsync(string email)
+        {
+            var employee = await _context.Employees.FirstOrDefaultAsync(e => e.Email == email);
+            return new UserVM
+            {
+                Nik = employee!.Nik,
+                Email = employee.Email,
+                FullName = string.Concat(employee.FirstName, " ", employee.LastName)
+            };
+        }
     }
 }

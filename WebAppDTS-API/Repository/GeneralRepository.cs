@@ -60,6 +60,7 @@ namespace WebAppDTS_API.Repository
         public virtual async Task<bool> IsExist(TKey key)
         {
             var entity = await GetByIdAsync(key);
+            _context.ChangeTracker.Clear();
             return entity != null;
         }
     }

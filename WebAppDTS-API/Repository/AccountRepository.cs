@@ -3,11 +3,13 @@ using WebAppDTS_API.Models;
 using WebAppDTS_API.Repository.Contracts;
 using WebAppDTS_API.ViewModels;
 using WebAppDTS_API.Handlers;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebAppDTS_API.Repository
 {
     public class AccountRepository : GeneralRepository<Account, string, MyContext>, IAccountRepository
     {
+        //private readonly MyContext context;
         private readonly IUniversityRepository _universityRepository;
         private readonly IEducationRepository _educationRepository;
         private readonly IEmployeeRepository _employeeRepository;
@@ -30,6 +32,7 @@ namespace WebAppDTS_API.Repository
             _accountRoleRepository = accountRoleRepository;
             _profilingRepository = profilingRepository;
             _roleRepository = roleRepository;
+            _context = context;
         }
         
         public async Task<int> RegisterAsync(RegisterVM registerVM)
@@ -122,18 +125,24 @@ namespace WebAppDTS_API.Repository
             return getUserData is not null && Hashing.ValidatePassword(loginVM.Password, getUserData.Password);
         }
 
-        public async Task<string> GetRoleName(string email)
-        {
-            var getEmployees = await _employeeRepository.GetAllAsync();
-            var getRoleName = await _roleRepository.GetAllAsync();
-            var getAccountRoles = await _accountRoleRepository.GetAllAsync();
+        //public async Task<Account?> GetAccountByEmail(string email)
+        //{
+        //    //using var transaction = _context.Database.BeginTransaction();
+        //    //var getNIK = await _employeeRepository.GetFullNameByEmailAsync(email);
+        //    //var getEmployee = await _employeeRepository.GetAllAsync();
+        //    //var getAccount = await GetAllAsync();
 
-            var getUserRole = getEmployees
-                                .Join(getAccountRoles, e => e.Nik, ar => ar.AccountNik, (e, ar) => new { e.Email, ar.RoleId })
-                                .Join(getRoleName, ea => ea.RoleId, r => r.Id, (ea, r) => new { ea.Email, r.Name })
-                                .FirstOrDefault(e => e.Email == email)!.Name;
+        //    var getNIK = await _context.Employees.FirstOrDefaultAsync(e => e.Email == email);
+        //    if (getNIK == null)
+        //    {
+        //        return null;
+        //    }
 
-            return getUserRole;
-        }
+        //    //var account = getEmployee
+        //    //                .Join(getAccount, e => e.Nik, a => a.EmployeeNik, (e, a) => new { e.Email, a.EmployeeNik })
+        //    //                .FirstOrDefault(e => e.Email == email).EmployeeNik;
+        //    var account = await _context.Set<Account>().FirstOrDefaultAsync(a => a.EmployeeNik == getNIK.Nik);
+        //    return account;
+        //}
     }
 }
