@@ -12,7 +12,7 @@ public partial class AccountRole
 
     public int RoleId { get; set; }
     [JsonIgnore]
-    public virtual Account? AccountNikNavigation { get; set; } = null!;
+    public virtual Account AccountNikNavigation { get; set; } = null!;
     [JsonIgnore]
-    public virtual Role? Role { get; set; } = null!;
+    public virtual Role Role { get; set; } = null!;
 }

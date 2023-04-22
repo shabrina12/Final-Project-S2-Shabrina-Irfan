@@ -18,5 +18,5 @@ public partial class Education
     [JsonIgnore]
     public virtual Profiling? Profiling { get; set; }
     [JsonIgnore]
-    public virtual University? University { get; set; } = null!;
+    public virtual University University { get; set; } = null!;
 }

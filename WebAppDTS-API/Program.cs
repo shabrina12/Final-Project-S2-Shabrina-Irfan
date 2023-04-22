@@ -17,6 +17,14 @@ builder.Services.AddControllers();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<MyContext>(options => options.UseSqlServer(connectionString));
 
+// Configure CORS
+builder.Services.AddCors(options =>
+                        options.AddDefaultPolicy(policy => {
+                            policy.AllowAnyOrigin();
+                            policy.AllowAnyHeader();
+                            policy.AllowAnyMethod();
+                        }));
+
 // Configure Dependency Injection for Repositories
 
 builder.Services.AddScoped<IAccountRoleRepository, AccountRoleRepository>();
@@ -61,8 +69,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-//app.UseCors();
+
+app.UseCors();
+
 app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapControllers();

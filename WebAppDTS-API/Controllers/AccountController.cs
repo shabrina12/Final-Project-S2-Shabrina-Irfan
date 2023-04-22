@@ -14,6 +14,7 @@ namespace WebAppDTS_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize(Roles = "admin")]
     public class AccountController : BaseController<IAccountRepository, Account, string>
     {
         private readonly IAccountRepository _repository;
@@ -99,7 +100,21 @@ namespace WebAppDTS_API.Controllers
                 var accessToken = _tokenService.GenerateAccessToken(claims);
                 //var refreshToken = _tokenService.GenerateRefreshToken();
 
-                return Ok(accessToken);
+                //await _repository.UpdateToken(userdata.Email, refreshToken, DateTime.Now.AddDays(1)); // Token will expired in a day
+
+                //var generateToken = new AuthenticatedResponseVM
+                //{
+                //    Token = accessToken,
+                //    RefreshToken = refreshToken
+                //};
+
+                return Ok(new
+                {
+                    StatusCode = 200,
+                    Message = "Login Success!",
+                    Data = accessToken
+                });
+                //return Ok(accessToken);
             }
             catch
             {

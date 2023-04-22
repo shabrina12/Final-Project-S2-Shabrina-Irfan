@@ -13,6 +13,8 @@ namespace WebAppDTS_API.Controllers
     {
         public EducationController(IEducationRepository repository) : base(repository)
         {
+            
         }
+        
     }
 }

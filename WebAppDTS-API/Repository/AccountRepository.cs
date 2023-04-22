@@ -127,22 +127,63 @@ namespace WebAppDTS_API.Repository
 
         //public async Task<Account?> GetAccountByEmail(string email)
         //{
-        //    //using var transaction = _context.Database.BeginTransaction();
-        //    //var getNIK = await _employeeRepository.GetFullNameByEmailAsync(email);
-        //    //var getEmployee = await _employeeRepository.GetAllAsync();
-        //    //var getAccount = await GetAllAsync();
-
         //    var getNIK = await _context.Employees.FirstOrDefaultAsync(e => e.Email == email);
         //    if (getNIK == null)
         //    {
         //        return null;
         //    }
-
-        //    //var account = getEmployee
-        //    //                .Join(getAccount, e => e.Nik, a => a.EmployeeNik, (e, a) => new { e.Email, a.EmployeeNik })
-        //    //                .FirstOrDefault(e => e.Email == email).EmployeeNik;
         //    var account = await _context.Set<Account>().FirstOrDefaultAsync(a => a.EmployeeNik == getNIK.Nik);
         //    return account;
+        //}
+
+        //public async Task<UserVM> GetUserData(string email)
+        //{
+        //    var result = await _context.Employees.Select(e => new UserVM
+        //    {
+        //        Email = e.Email,
+        //        FullName = String.Concat(e.FirstName, " ", e.LastName),
+        //    }).FirstOrDefaultAsync(e => e.Email == email);
+
+        //    return result;
+        //}
+
+        //public async Task<List<string>> GetRoles(string email)
+        //{
+        //    var getNIK = await _context.Employees.FirstOrDefaultAsync(e => e.Email == email);
+        //    var getAccountRoles = await _accountRoleRepository.GetAllAsync();
+        //    var getRoles = await _roleRepository.GetAllAsync();
+        //    var getRole = getAccountRoles.Where(ar => ar.AccountNik == getNIK.Nik) 
+        //                                 .Join(getRoles, ar => ar.RoleId, r => r.Id, (ar, r) => r.Name).ToList();
+
+        //    return getRole;
+        //}
+
+        //public async Task<int> UpdateToken(string email, string refreshToken, DateTime expiryTime)
+        //{
+        //    var getNIK = await _context.Employees.FirstOrDefaultAsync(e => e.Email == email);
+        //    if (getNIK == null)
+        //    {
+        //        return 0;
+        //    }
+           
+        //    var account = await _context.Set<Account>().FirstOrDefaultAsync(a => a.EmployeeNik == getNIK.Nik);
+        //    account.RefreshToken = refreshToken;
+        //    account.RefreshTokenExpiryTime = expiryTime;
+
+        //    return await base.UpdateAsync(account);
+        //}
+
+        //public async Task<int> UpdateToken(string email, string refreshToken)
+        //{
+        //    var getNIK = await _context.Employees.FirstOrDefaultAsync(e => e.Email == email);
+        //    if (getNIK == null)
+        //    {
+        //        return 0;
+        //    }
+        //    var account = await _context.Set<Account>().FirstOrDefaultAsync(a => a.EmployeeNik == getNIK.Nik);
+        //    account.RefreshToken = refreshToken;
+
+        //    return await base.UpdateAsync(account);
         //}
     }
 }

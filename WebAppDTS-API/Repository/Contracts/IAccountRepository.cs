@@ -8,9 +8,8 @@ namespace WebAppDTS_API.Repository.Contracts
         Task<int> RegisterAsync(RegisterVM registerVM);
         Task<bool> LoginAsync(LoginVM loginVM);
         //Task<Account?> GetAccountByEmail(string email);
-
-        //Task<string> GetRoleName(string email);
         //Task<UserVM> GetUserData(string email);
+        //Task<List<string>> GetRoles(string email);
         //Task<int> UpdateToken(string email, string refreshToken, DateTime expiryTime);
         //Task<int> UpdateToken(string email, string refreshToken);
     }
