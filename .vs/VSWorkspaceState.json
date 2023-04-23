@@ -8,6 +8,6 @@
     "\\WebAppDTS-API\\Repository",
     "\\WebAppDTS-API\\Repository\\Contracts"
   ],
-  "SelectedNode": "\\WebAppDTS-API\\Repository\\EmployeeRepository.cs",
+  "SelectedNode": "\\WebAppDTS-API\\Repository\\Contracts\\IEmployeeRepository.cs",
   "PreviewInSolutionExplorer": false
 }

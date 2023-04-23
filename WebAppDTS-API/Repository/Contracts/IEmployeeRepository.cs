@@ -10,5 +10,6 @@ namespace WebAppDTS_API.Repository.Contracts
         Task<IEnumerable<EmployeeMasterVM>> GetEmployeeEduUniv();
         Task<IEnumerable<AverageGpa>> EmployeeAvgGpa(string tahun);
         Task<IEnumerable<TotalEmployeeByMajor>> TotalByMajor();
+        Task<IEnumerable<WorkPeriodVM>> WorkPeriod();
     }
 }

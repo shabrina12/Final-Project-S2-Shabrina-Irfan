@@ -119,5 +119,28 @@ namespace WebAppDTS_API.Repository
                                };
             return totalByMajor;
         }
+
+        //Profiling/WorkPeriod: Menampilkan Employee berdasarkan lama kerjanya diurutkan secara desc
+        public async Task<IEnumerable<WorkPeriodVM>> WorkPeriod()
+        {
+            var getEmployees = await GetAllAsync();
+            DateTime endDate = DateTime.Now;
+            var workPeriod = from e in getEmployees
+                             let startDate = e.HiringDate
+                             select new WorkPeriodVM
+                             {
+                                 Nik = e.Nik,
+                                 FirstName = e.FirstName,
+                                 LastName = e.LastName,
+                                 BirthDate = e.BirthDate,
+                                 Gender = e.Gender,
+                                 HiringDate = e.HiringDate,
+                                 Email = e.Email,
+                                 PhoneNumber = e.PhoneNumber,
+                                 WorkPeriodInDays = (endDate - startDate).Days
+                             };
+            return workPeriod;
+        }
+
     }
 }

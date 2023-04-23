@@ -39,7 +39,7 @@ namespace WebAppDTS_API.Controllers
         }
 
         [HttpGet("avg/{tahun}")]
-        public async Task<ActionResult> GetAverage(string tahun)
+        public async Task<ActionResult> GetEmployeesWithGpaAboveAvg(string tahun)
         {
             try
             {
@@ -63,6 +63,25 @@ namespace WebAppDTS_API.Controllers
             try
             {
                 var results = await _repository.TotalByMajor();
+                return Ok(new
+                {
+                    code = StatusCodes.Status200OK,
+                    status = HttpStatusCode.OK.ToString(),
+                    Message = results
+                });
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet("workperiod")]
+        public async Task<ActionResult> GetEmployeesWorkPeriod()
+        {
+            try
+            {
+                var results = await _repository.WorkPeriod();
                 return Ok(new
                 {
                     code = StatusCodes.Status200OK,
