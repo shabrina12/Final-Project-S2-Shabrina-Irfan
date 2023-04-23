@@ -4,7 +4,7 @@ using WebAppDTS_API.Models;
 
 namespace WebAppDTS_API.ViewModels
 {
-    public class EmployeeMaster : Employee
+    public class EmployeeMasterVM : Employee
     {
         public string Major { get; set; } = null!;
         public string Degree { get; set; } = null!;

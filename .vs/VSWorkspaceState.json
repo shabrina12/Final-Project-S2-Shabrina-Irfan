@@ -5,7 +5,8 @@
     "\\WebAppDTS-API\\Base",
     "\\WebAppDTS-API\\Controllers",
     "\\WebAppDTS-API\\Models",
-    "\\WebAppDTS-API\\Repository"
+    "\\WebAppDTS-API\\Repository",
+    "\\WebAppDTS-API\\Repository\\Contracts"
   ],
   "SelectedNode": "\\WebAppDTS-API\\Repository\\EmployeeRepository.cs",
   "PreviewInSolutionExplorer": false

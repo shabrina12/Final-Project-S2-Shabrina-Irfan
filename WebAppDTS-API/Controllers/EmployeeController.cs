@@ -20,11 +20,49 @@ namespace WebAppDTS_API.Controllers
         }
 
         [HttpGet("Master")]
-        public async Task<ActionResult> GetEmpEduUniv()
+        public async Task<ActionResult> GetEmployeeEduUnivData()
         {
             try
             {
                 var results = await _repository.GetEmployeeEduUniv();
+                return Ok(new
+                {
+                    code = StatusCodes.Status200OK,
+                    status = HttpStatusCode.OK.ToString(),
+                    Message = results
+                });
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet("avg/{tahun}")]
+        public async Task<ActionResult> GetAverage(string tahun)
+        {
+            try
+            {
+                var results = await _repository.EmployeeAvgGpa(tahun);
+                return Ok(new
+                {
+                    code = StatusCodes.Status200OK,
+                    status = HttpStatusCode.OK.ToString(),
+                    Message = results
+                });
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet("totalbymajor")]
+        public async Task<ActionResult> GetTotalEmployeeByMajor()
+        {
+            try
+            {
+                var results = await _repository.TotalByMajor();
                 return Ok(new
                 {
                     code = StatusCodes.Status200OK,

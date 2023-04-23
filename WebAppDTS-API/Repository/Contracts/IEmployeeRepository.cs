@@ -7,6 +7,8 @@ namespace WebAppDTS_API.Repository.Contracts
     {
         Task<string> GetFullNameByEmailAsync(string email);
         Task<UserVM> GetUserDataByEmailAsync(string email);
-        Task<IEnumerable<EmployeeMaster>> GetEmployeeEduUniv();
+        Task<IEnumerable<EmployeeMasterVM>> GetEmployeeEduUniv();
+        Task<IEnumerable<AverageGpa>> EmployeeAvgGpa(string tahun);
+        Task<IEnumerable<TotalEmployeeByMajor>> TotalByMajor();
     }
 }

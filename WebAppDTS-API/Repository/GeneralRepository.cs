@@ -1,6 +1,7 @@
 ﻿using WebAppDTS_API.Contexts;
 using WebAppDTS_API.Repository.Contracts;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebAppDTS_API.Repository
 {
