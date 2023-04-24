@@ -54,7 +54,7 @@ namespace WebAppDTS_API.Base
 
         // UPDATE
         [HttpPut("{key}")]
-        public async Task<IActionResult> UpdateAsync(Entity entity, Key key)
+        public virtual async Task<IActionResult> UpdateAsync(Entity entity, Key key)
         {
             if (key.Equals(entity.GetType().GetProperty("Id")) || key.Equals(entity.GetType().GetProperty("Nik")))
             {
@@ -80,7 +80,7 @@ namespace WebAppDTS_API.Base
 
         // DELETE
         [HttpDelete("{key}")]
-        public virtual async Task<IActionResult> Delete(Key key)
+        public async Task<IActionResult> Delete(Key key)
         {
             var result = await _repository.DeleteAsync(key);
             if (result == 0)

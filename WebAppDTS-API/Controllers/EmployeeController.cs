@@ -38,7 +38,7 @@ namespace WebAppDTS_API.Controllers
             }
         }
 
-        [HttpGet("avg/{tahun}")]
+        [HttpGet("avgGpa/{tahun}")]
         public async Task<ActionResult> GetEmployeesWithGpaAboveAvg(string tahun)
         {
             try

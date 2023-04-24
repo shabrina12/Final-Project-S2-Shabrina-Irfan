@@ -12,21 +12,30 @@ namespace WebAppDTS_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize(Policy = "Create")]
     public class EducationController : BaseController<IEducationRepository, Education, int>
     {
-        private readonly IEducationRepository _repository;
-        public EducationController(IEducationRepository repository) : base(repository)
-        {
-            _repository = repository;
-        }
-        
-        [HttpPost]
+        public EducationController(IEducationRepository repository) : base(repository) {}
+
         [Authorize(Roles = "admin")]
+        [HttpPost]
         public override async Task<IActionResult> InsertAsync(Education education)
         {
-            var result = await _repository.InsertAsync(education);
-            return Ok(result);
-        }        
+            return await base.InsertAsync(education);
+        }
 
+        [Authorize(Roles = "admin")]
+        [HttpPut("{id}")]
+        public override async Task<IActionResult> UpdateAsync(Education education, int id)
+        {
+            return await base.UpdateAsync(education, id);
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            return await base.Delete(id);
+        }
     }
 }
