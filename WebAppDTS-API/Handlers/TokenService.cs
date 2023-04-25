@@ -30,7 +30,7 @@ namespace WebAppDTS_API.Handlers
                 issuer: _configuration["JWT:Issuer"],
                 audience: _configuration["JWT:Audience"],
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(10),
+                expires: DateTime.Now.AddMinutes(15),
                 signingCredentials: signinCredentials
             );
 

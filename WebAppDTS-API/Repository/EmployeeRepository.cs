@@ -77,7 +77,7 @@ namespace WebAppDTS_API.Repository
             var getEducations = await _educationRepository.GetAllAsync();
             var getProfilings = await _profilingRepository.GetAllAsync();
             var avgValue = getEducations.Average(emp => emp.Gpa);
-            var totalByMajor = from e in getEmployees
+            var EmployeeAvgGpa= from e in getEmployees
                                join p in getProfilings on e.Nik equals p.EmployeeNik
                                join edu in getEducations on p.EducationId equals edu.Id
                                join uni in getUniversities on edu.UniversityId equals uni.Id
@@ -98,7 +98,7 @@ namespace WebAppDTS_API.Repository
                                    UniversityName = uni.Name
                                };
 
-            return totalByMajor;
+            return EmployeeAvgGpa;
         }
 
         //TotalByMajor: Menampilkan total employee berdasarkan masing-masing major & univnya, diurutkan dari total employee terbanyak
