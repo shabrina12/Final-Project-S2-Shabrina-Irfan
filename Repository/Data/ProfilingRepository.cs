@@ -22,5 +22,19 @@ namespace Web_API.Repository.Data
                         select new {Major = g.Key.Major, University = g.Key.Name, Total = g.Count()};
             return await query.ToListAsync();
         }
+
+        public async Task<dynamic> GetWorkPeriod()
+        {
+            var query = from p in _context.Profilings
+                        join e in _context.Employees
+                            on p.EmployeeNik equals e.Nik
+                        orderby e.HiringDate
+                        select new { 
+                            Name = (e.FirstName+" "+e.LastName),
+                            NIK = e.Nik,
+                            PeriodDays = ((int)(DateTime.Now - e.HiringDate).TotalDays)
+                        };
+            return await query.ToListAsync();
+        }
     }
 }

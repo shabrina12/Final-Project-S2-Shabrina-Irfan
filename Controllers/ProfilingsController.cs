@@ -36,9 +36,10 @@ namespace Web_API.Controllers
         [HttpGet("WorkPeriod")]
         public async Task<ActionResult> GetByWorkPeriod()
         {
+            var result = await _repository.GetWorkPeriod();
             ResultFormat resultFormat = new ResultFormat
             {
-                Data = ""
+                Data = result
             };
             return Ok(resultFormat);
         }
