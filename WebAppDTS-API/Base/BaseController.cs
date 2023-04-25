@@ -44,7 +44,6 @@ namespace WebAppDTS_API.Base
         }
 
         // INSERT
-        //[Authorize(Roles = "admin")]
         [HttpPost]
         public virtual async Task<IActionResult> InsertAsync(Entity entity)
         {
@@ -80,7 +79,7 @@ namespace WebAppDTS_API.Base
 
         // DELETE
         [HttpDelete("{key}")]
-        public async Task<IActionResult> Delete(Key key)
+        public virtual async Task<IActionResult> Delete(Key key)
         {
             var result = await _repository.DeleteAsync(key);
             if (result == 0)

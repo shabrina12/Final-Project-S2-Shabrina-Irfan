@@ -12,7 +12,6 @@ namespace WebAppDTS_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(Policy = "Create")]
     public class EducationController : BaseController<IEducationRepository, Education, int>
     {
         public EducationController(IEducationRepository repository) : base(repository) {}
@@ -33,7 +32,7 @@ namespace WebAppDTS_API.Controllers
 
         [Authorize(Roles = "admin")]
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public override async Task<IActionResult> Delete(int id)
         {
             return await base.Delete(id);
         }

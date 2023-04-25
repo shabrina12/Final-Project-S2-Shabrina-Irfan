@@ -59,30 +59,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             };
         });
 
-//https://blog.joaograssi.com/posts/2021/asp-net-core-protecting-api-endpoints-with-dynamic-policies/
-//https://stackoverflow.com/questions/13870833/can-an-action-authorize-everyone-except-a-given-user-role
-//builder.Services.AddAuthorization(options =>
-//{
-//    options.AddPolicy("Get", policy => policy.RequireAssertion(context =>
-//      context.User.HasClaim(c => c.Type == "User" && c.Value == "Read")));
-
-//    options.AddPolicy("Post", policy => policy.RequireAssertion(context =>
-//        context.User.HasClaim(c => c.Type == "Admin" && c.Value == "InsertAsync")));
-
-//    options.AddPolicy("Put", policy => policy.RequireAssertion(context =>
-//        context.User.HasClaim(c => c.Type == "Admin" && c.Value == "UpdateAsync")));
-
-//    options.AddPolicy("Delete", policy => policy.RequireAssertion(context =>
-//        context.User.HasClaim(c => c.Type == "Admin" && c.Value == "Delete")));
-//});
-
-//builder.Services.AddAuthorization(options =>
-//{
-//    options.AddPolicy("AdminOnly", policy => policy.RequireClaim("Admin"));
-//    options.AddPolicy("ITOnly", policy => policy.RequireClaim("Permission", "IT"));
-//    options.AddPolicy("AdminRole", policy => policy.RequireRole("AdminRole"));
-//});
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
