@@ -69,7 +69,7 @@ namespace WebAppDTS_API.Repository
             return employeeEduUni;
         }
 
-        //Employee/AvgGPA/{tahun}: Tampilkan employee dengan GPA diatas rata-rata yang direkrut pada tahun yang diinputkan berdasarkan jurusan dan universitas.
+        //AvgGPA/{tahun}: Tampilkan employee dengan GPA diatas rata-rata yang direkrut pada tahun yang diinputkan berdasarkan jurusan dan universitas.
         public async Task<IEnumerable<AverageGpa>> EmployeeAvgGpa(string tahun)
         {
             var getEmployees = await GetAllAsync();
@@ -101,7 +101,7 @@ namespace WebAppDTS_API.Repository
             return totalByMajor;
         }
 
-        //Profiling/TotalByMajor: Menampilkan total employee berdasarkan masing-masing major & univnya, diurutkan dari total employee terbanyak
+        //TotalByMajor: Menampilkan total employee berdasarkan masing-masing major & univnya, diurutkan dari total employee terbanyak
         public async Task<IEnumerable<TotalEmployeeByMajor>> TotalByMajor()
         {
             var getUniversities = await _universityRepository.GetAllAsync();
@@ -120,7 +120,7 @@ namespace WebAppDTS_API.Repository
             return totalByMajor;
         }
 
-        //Profiling/WorkPeriod: Menampilkan Employee berdasarkan lama kerjanya diurutkan secara desc
+        //WorkPeriod: Menampilkan Employee berdasarkan lama kerjanya diurutkan secara desc
         public async Task<IEnumerable<WorkPeriodVM>> WorkPeriod()
         {
             var getEmployees = await GetAllAsync();

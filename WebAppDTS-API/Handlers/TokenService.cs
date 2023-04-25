@@ -10,7 +10,6 @@ namespace WebAppDTS_API.Handlers
     {
         string GenerateAccessToken(IEnumerable<Claim> claims);
         string GenerateRefreshToken();
-        ClaimsPrincipal GetPrincipalFromExpiredToken(string token);
     }
 
     public class TokenService : ITokenService
@@ -47,28 +46,6 @@ namespace WebAppDTS_API.Handlers
                 rng.GetBytes(randomNumber);
                 return Convert.ToBase64String(randomNumber);
             }
-        }
-
-        public ClaimsPrincipal GetPrincipalFromExpiredToken(string token)
-        {
-            var tokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateAudience = true,                
-                ValidateIssuer = true,
-                ValidAudience = _configuration["JWT:Audience"],
-                ValidIssuer = _configuration["JWT:Issuer"],
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Key"])),
-                ValidateLifetime = true
-            };
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            SecurityToken securityToken;
-            var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out securityToken);
-            var jwtSecurityToken = securityToken as JwtSecurityToken;
-            if (jwtSecurityToken == null || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
-                throw new SecurityTokenException("Invalid token");
-
-            return principal;
         }
     }
 }

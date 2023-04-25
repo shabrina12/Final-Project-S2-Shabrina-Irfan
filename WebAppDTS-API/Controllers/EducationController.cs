@@ -16,22 +16,22 @@ namespace WebAppDTS_API.Controllers
     {
         public EducationController(IEducationRepository repository) : base(repository) {}
 
-        [Authorize(Roles = "admin")]
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public override async Task<IActionResult> InsertAsync(Education education)
         {
             return await base.InsertAsync(education);
         }
 
-        [Authorize(Roles = "admin")]
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public override async Task<IActionResult> UpdateAsync(Education education, int id)
         {
             return await base.UpdateAsync(education, id);
         }
 
-        [Authorize(Roles = "admin")]
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public override async Task<IActionResult> Delete(int id)
         {
             return await base.Delete(id);

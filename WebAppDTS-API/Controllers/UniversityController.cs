@@ -9,7 +9,7 @@ namespace WebAppDTS_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "user")]
+    [Authorize(Roles = "User")]
     public class UniversityController : BaseController<IUniversityRepository, University, int>
     {
         public UniversityController(IUniversityRepository repository) : base(repository)
