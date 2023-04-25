@@ -9,6 +9,21 @@ namespace Web_API.Repository.Data
     {
         public ProfilingRepository(SQLServerContext context) : base(context) { }
 
+        public async Task<dynamic> GetAvgGpaByYear(int year)
+        {
+            var query = from p in _context.Profilings
+                        join em in _context.Employees
+                            on p.EmployeeNik equals em.Nik
+                        join e in _context.Educations
+                            on p.EducationId equals e.Id
+                        join u in _context.Universities
+                            on e.UniversityId equals u.Id
+                        where em.HiringDate.Year == year
+                        group new { p, e, u, em } by new { e.Major, u.Name } into g
+                        select new { Major = g.Key.Major, University = g.Key.Name, Year = year, Average = g.Average(x => x.e.Gpa) };
+            return await query.ToListAsync();
+        }
+
         public async Task<dynamic> GetTotalbyMajor()
         {
             var query = from p in _context.Profilings

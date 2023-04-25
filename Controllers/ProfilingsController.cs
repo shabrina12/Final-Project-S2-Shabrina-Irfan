@@ -15,9 +15,10 @@ namespace Web_API.Controllers
         [HttpGet("AvgGPA/{year}")]
         public async Task<ActionResult> GetAvgGpa(int year)
         {
+            var result = await _repository.GetAvgGpaByYear(year);
             ResultFormat resultFormat = new ResultFormat
             {
-                Data = year
+                Data = result
             };
             return Ok(resultFormat);
         }

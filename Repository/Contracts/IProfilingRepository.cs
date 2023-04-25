@@ -6,5 +6,6 @@ namespace Web_API.Repository.Contracts
     {
         Task<dynamic> GetTotalbyMajor();
         Task<dynamic> GetWorkPeriod();
+        Task<dynamic> GetAvgGpaByYear(int year);
     }
 }
