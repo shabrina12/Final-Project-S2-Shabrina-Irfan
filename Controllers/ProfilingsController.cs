@@ -25,9 +25,10 @@ namespace Web_API.Controllers
         [HttpGet("TotalByMajor")]
         public async Task<ActionResult> GetTotalByMajor()
         {
+            var result = await _repository.GetTotalbyMajor();
             ResultFormat resultFormat = new ResultFormat
             {
-                Data = ""
+                Data = result
             };
             return Ok(resultFormat);
         }

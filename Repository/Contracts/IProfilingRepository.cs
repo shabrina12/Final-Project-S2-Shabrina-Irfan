@@ -4,5 +4,6 @@ namespace Web_API.Repository.Contracts
 {
     public interface IProfilingRepository : IGeneralRepository<Profiling, int>
     {
+        Task<dynamic> GetTotalbyMajor();
     }
 }
