@@ -1,3 +1,2 @@
 ## Kelompok 2
-### Shabrina
-### Irfan
+### Query untuk path Profiling/ sementara saya implementasi di EmployeeRepository
